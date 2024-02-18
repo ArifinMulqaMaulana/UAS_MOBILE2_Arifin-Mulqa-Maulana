@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uas_pm2/dashboard/dashboard_screen.dart';
 import 'package:uas_pm2/auth/register_screen.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,44 +15,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isPasswordVisible = false;
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  @override
-  void initState() {
-    super.initState();
-    initializeNotifications();
-  }
-
-  Future<void> initializeNotifications() async {
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('app_icon');
-    final InitializationSettings initializationSettings =
-        InitializationSettings(android: androidInitializationSettings);
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
-  }
-
-  Future<void> _showNotification() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'your channel id',
-      'your channel name',
-      'your channel description',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'Login Successful',
-      'You have successfully logged in!',
-      platformChannelSpecifics,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim(),
                                 );
-
-                                // Show notification upon successful login
-                                _showNotification();
 
                                 Navigator.push(
                                   context,

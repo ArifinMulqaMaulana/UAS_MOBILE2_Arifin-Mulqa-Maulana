@@ -15,7 +15,6 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
   firebase_storage: ^11.6.5
-  flutter_local_notifications: ^5.0.0
   
 
 dev_dependencies:
